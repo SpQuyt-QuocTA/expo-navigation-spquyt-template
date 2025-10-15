@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Text, TextInput, View } from 'react-native';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { BaseInputProps } from './types';
 
 const BaseInput = forwardRef<TextInput, BaseInputProps>(
@@ -21,18 +22,23 @@ const BaseInput = forwardRef<TextInput, BaseInputProps>(
     },
     ref,
   ) => {
-    const defaultInputStyles = 'h-11 px-4 rounded-lg border border-gray-300 bg-white text-base';
-    const errorStyles = error ? 'border-red-500 bg-red-50' : '';
-    const disabledStyles = !editable ? 'bg-gray-100 text-gray-400' : '';
-    const finalInputStyles = `${defaultInputStyles} ${errorStyles} ${disabledStyles} ${inputClassName}`.trim();
+    const placeholderColor = useThemeColor('inputPlaceholder');
+
+    const defaultInputStyles = 'h-11 px-4 rounded-lg border text-base';
+    const stateStyles = error
+      ? 'border-error bg-red-50'
+      : editable
+        ? 'border-input-border bg-input text-foreground'
+        : 'border-input-border bg-background-secondary text-foreground';
+    const finalInputStyles = `${defaultInputStyles} ${stateStyles} ${inputClassName}`.trim();
 
     return (
       <View className={`${containerClassName}`.trim()}>
         {/* Label */}
         {label && (
-          <Text className={`mb-1.5 text-sm font-medium text-gray-700 ${labelClassName}`.trim()}>
+          <Text className={`mb-1.5 text-sm font-medium text-foreground-secondary ${labelClassName}`.trim()}>
             {label}
-            {required && <Text className="text-red-500"> *</Text>}
+            {required && <Text className="text-error"> *</Text>}
           </Text>
         )}
 
@@ -47,7 +53,7 @@ const BaseInput = forwardRef<TextInput, BaseInputProps>(
             className={finalInputStyles}
             style={[leftIcon ? { paddingLeft: 40 } : rightIcon ? { paddingRight: 40 } : undefined, { width: '100%' }]}
             editable={editable}
-            placeholderTextColor="#9CA3AF"
+            placeholderTextColor={placeholderColor}
             {...textInputProps}
           />
 
@@ -56,15 +62,11 @@ const BaseInput = forwardRef<TextInput, BaseInputProps>(
         </View>
 
         {/* Error Message */}
-        {error && (
-          <Text className={`mt-1 text-xs text-red-500 ${errorClassName}`.trim()}>{error}</Text>
-        )}
+        {error && <Text className={`mt-1 text-xs text-error ${errorClassName}`.trim()}>{error}</Text>}
 
         {/* Helper Text */}
         {helperText && !error && (
-          <Text className={`mt-1 text-xs text-gray-500 ${helperClassName}`.trim()}>
-            {helperText}
-          </Text>
+          <Text className={`mt-1 text-xs text-foreground-secondary ${helperClassName}`.trim()}>{helperText}</Text>
         )}
       </View>
     );

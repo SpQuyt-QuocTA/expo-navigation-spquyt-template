@@ -20,12 +20,9 @@ const Header: React.FC<HeaderProps> = ({
   const navigation = useNavigation();
   const canGoBack = navigation.canGoBack();
 
-  const defaultContainerStyles = 'h-14 px-4 flex-row items-center justify-between bg-white';
-  const borderStyles = showBorder ? 'border-b border-gray-200' : '';
-  const finalContainerStyles = `${defaultContainerStyles} ${borderStyles} ${containerClassName}`.trim();
-
-  const defaultTitleStyles = 'text-lg font-semibold text-gray-900';
-  const finalTitleStyles = `${defaultTitleStyles} ${titleClassName}`.trim();
+  const borderStyles = showBorder ? 'border-b border-border' : '';
+  const finalContainerStyles = `h-14 px-4 flex-row items-center justify-between bg-card ${borderStyles} ${containerClassName}`.trim();
+  const finalTitleStyles = `text-lg font-semibold text-foreground ${titleClassName}`.trim();
 
   // Render default back button if needed
   const renderLeftElement = () => {
@@ -65,4 +62,3 @@ const Header: React.FC<HeaderProps> = ({
 };
 
 export default Header;
-

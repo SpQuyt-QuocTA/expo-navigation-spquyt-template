@@ -14,11 +14,9 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = ({
   const defaultOverlayStyles = 'flex-1 items-center justify-center bg-black/50';
   const finalOverlayStyles = `${defaultOverlayStyles} ${overlayClassName}`.trim();
 
-  const defaultContainerStyles = 'rounded-2xl bg-white p-6 shadow-lg';
-  const finalContainerStyles = `${defaultContainerStyles} ${containerClassName}`.trim();
+  const finalContainerStyles = `rounded-2xl bg-card p-6 shadow-lg ${containerClassName}`.trim();
 
-  const defaultMessageStyles = 'mt-4 text-center text-base text-gray-700';
-  const finalMessageStyles = `${defaultMessageStyles} ${messageClassName}`.trim();
+  const finalMessageStyles = `mt-4 text-center text-base text-foreground-secondary ${messageClassName}`.trim();
 
   return (
     <Modal transparent visible={visible} animationType="fade" statusBarTranslucent>
@@ -33,4 +31,3 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = ({
 };
 
 export default OverlayLoading;
-

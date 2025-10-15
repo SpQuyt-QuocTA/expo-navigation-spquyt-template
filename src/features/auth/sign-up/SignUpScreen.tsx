@@ -26,9 +26,9 @@ export default function SignUpScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-6 justify-center">
-        <Text className="text-3xl font-bold mb-8 text-gray-900">Create Account</Text>
+        <Text className="text-3xl font-bold mb-8 text-foreground">Create Account</Text>
 
         <FormInput
           control={control}
@@ -72,9 +72,9 @@ export default function SignUpScreen() {
           onPress={() => navigation.navigate(AUTH_ROUTES.LOGIN)}
           className="mt-4"
         >
-          <Text className="text-center text-gray-600">
+          <Text className="text-center text-foreground-secondary">
             Already have an account?{' '}
-            <Text className="text-blue-600 font-semibold">Login</Text>
+            <Text className="text-primary font-semibold">Login</Text>
           </Text>
         </TouchableOpacity>
       </View>
@@ -83,4 +83,3 @@ export default function SignUpScreen() {
     </SafeAreaView>
   );
 }
-

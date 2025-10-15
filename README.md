@@ -6,8 +6,9 @@ Multi-environment React Native template with:
 - **React Native**: 0.81.4
 - **React Navigation**: 7.1.6
 - **Expo Dev Client** for custom native code
-- **NativeWind** (Tailwind CSS)
+- **NativeWind** (Tailwind CSS) with dark mode
 - **TypeScript** support
+- **Light/Dark Theme** support
 
 Supports 3 environments: `development`, `staging`, `production`
 
@@ -122,6 +123,70 @@ if (isDevelopment()) {
 logger.info('Info message');
 logger.warn('Warning');
 logger.error('Error');
+```
+
+### Theme System
+
+All colors are centralized in `src/config/colors.ts` - **single source of truth**.
+
+#### 🎨 How to Add/Change Colors
+
+**1. Edit `src/config/colors.ts`** (the ONLY file you need to edit):
+
+```typescript
+export const lightColors = {
+  primary: '#3B82F6',
+  background: '#FFFFFF',
+  // ... existing colors
+  accent: '#FF6B9D', // ✅ Add new color here
+};
+
+export const darkColors = {
+  primary: '#60A5FA',
+  background: '#111827',
+  // ... existing colors
+  accent: '#FF8AB8', // ✅ Add dark variant here
+};
+```
+
+**2. Auto-updates everywhere:**
+
+- ✅ Tailwind classes (`bg-accent`, `text-accent`)
+- ✅ React Navigation theme
+- ✅ NativeWind CSS variables
+- ✅ TypeScript types
+
+**3. Use in your components:**
+
+```tsx
+// With Tailwind classes (automatically themed)
+<View className="bg-background">
+  <Text className="text-primary">Hello</Text>
+  <Text className="text-foreground-secondary">Subtitle</Text>
+  <Button className="bg-accent" /> {/* Your new color! */}
+</View>
+
+// Available semantic colors (all themed automatically):
+// - primary, background, background-secondary
+// - foreground, foreground-secondary
+// - card, input, input-border, border
+// - success, error, warning
+```
+
+#### 🌓 Using Theme in Code
+
+```tsx
+// Theme toggle component
+import ThemeToggle from '@/components/theme-toggle/ThemeToggle';
+<ThemeToggle />;
+
+// Access theme programmatically
+import { useTheme } from '@/context/ThemeContext';
+const { colors, isDark, toggleTheme } = useTheme();
+
+// Get specific color value
+import { useThemeColor } from '@/hooks/useThemeColor';
+const primaryColor = useThemeColor('primary'); // Returns hex value
 ```
 
 ---

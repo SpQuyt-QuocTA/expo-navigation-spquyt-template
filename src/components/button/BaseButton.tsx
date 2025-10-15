@@ -21,7 +21,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   const hasCustomContainer = containerClassName.length > 0;
   const defaultContainerStyles = hasCustomContainer
     ? 'flex-row items-center justify-center'
-    : 'h-11 px-6 rounded-lg bg-blue-600 flex-row items-center justify-center';
+    : 'h-11 px-6 rounded-lg bg-primary flex-row items-center justify-center';
   const disabledStyles = isDisabled ? 'opacity-50' : '';
   const finalContainerStyles = `${defaultContainerStyles} ${disabledStyles} ${containerClassName}`.trim();
 
@@ -56,4 +56,3 @@ const BaseButton: React.FC<BaseButtonProps> = ({
 };
 
 export default BaseButton;
-

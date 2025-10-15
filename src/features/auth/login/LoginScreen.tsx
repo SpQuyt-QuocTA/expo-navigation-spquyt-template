@@ -24,9 +24,9 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-6 justify-center gap-y-4">
-        <Text className="text-3xl font-bold mb-8 text-gray-900">Login</Text>
+        <Text className="text-3xl font-bold mb-8 text-foreground">Login</Text>
 
         <FormInput
           control={control}
@@ -51,9 +51,9 @@ export default function LoginScreen() {
           onPress={() => navigation.navigate(AUTH_ROUTES.SIGN_UP)}
           className="mt-4"
         >
-          <Text className="text-center text-gray-600">
+          <Text className="text-center text-foreground-secondary">
             Don't have an account?{' '}
-            <Text className="text-blue-600 font-semibold">Sign Up</Text>
+            <Text className="text-primary font-semibold">Sign Up</Text>
           </Text>
         </TouchableOpacity>
       </View>
