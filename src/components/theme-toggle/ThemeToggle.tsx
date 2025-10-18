@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/context/ThemeContext';
 
 interface ThemeToggleProps {
@@ -11,6 +12,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
   containerClassName = '',
   textClassName = '',
 }) => {
+  const { t } = useTranslation();
   const { isDark, toggleTheme } = useTheme();
 
   return (
@@ -20,7 +22,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
       activeOpacity={0.7}
     >
       <Text className={`font-semibold text-foreground ${textClassName}`.trim()}>
-        {isDark ? '🌙 Dark' : '☀️ Light'}
+        {isDark ? t('theme.dark') : t('theme.light')}
       </Text>
     </TouchableOpacity>
   );

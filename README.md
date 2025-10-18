@@ -189,6 +189,87 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 const primaryColor = useThemeColor('primary'); // Returns hex value
 ```
 
+### Internationalization (i18n)
+
+All translations are defined in `src/i18n/locales/*.json` files.
+
+#### 🌐 Supported Languages
+
+- English (`en`)
+- Vietnamese (`vi`)
+
+#### 📝 How to Add/Change Translations
+
+**1. Edit translation files** (both languages):
+
+```json
+// src/i18n/locales/en.json
+{
+  "common": {
+    "myKey": "My English Text"
+  }
+}
+
+// src/i18n/locales/vi.json
+{
+  "common": {
+    "myKey": "Văn bản tiếng Việt"
+  }
+}
+```
+
+**2. Use in your components:**
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+function MyComponent() {
+  const { t } = useTranslation();
+
+  return <Text>{t('common.myKey')}</Text>;
+}
+```
+
+#### 🔤 Adding a New Language
+
+**1. Create translation file:**
+
+```bash
+# src/i18n/locales/es.json (example for Spanish)
+{
+  "common": { ... },
+  "auth": { ... }
+}
+```
+
+**2. Update i18n config:**
+
+```typescript
+// src/i18n/index.ts
+import es from './locales/es.json';
+
+export const LANGUAGES = {
+  en: { name: 'English', nativeName: 'English' },
+  vi: { name: 'Vietnamese', nativeName: 'Tiếng Việt' },
+  es: { name: 'Spanish', nativeName: 'Español' }, // Add here
+};
+
+// In init()
+resources: {
+  en: { translation: en },
+  vi: { translation: vi },
+  es: { translation: es }, // Add here
+}
+```
+
+**3. Language switcher is automatic:**
+
+```tsx
+// Already in OverviewScreen
+import LanguageSelector from '@/components/language-selector/LanguageSelector';
+<LanguageSelector />;
+```
+
 ---
 
 ## ⚠️ When to Run Prebuild

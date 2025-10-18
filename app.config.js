@@ -35,6 +35,13 @@ module.exports = {
     },
     plugins: [
       [
+        "expo-localization",
+        {
+          fallbackLocale: 'en',
+          availableLocales: ['en', 'vi'],
+        },
+      ],
+      [
         'expo-dev-client',
         {
           launchMode: 'most-recent',

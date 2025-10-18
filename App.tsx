@@ -1,5 +1,6 @@
 import './global.css';
 import 'react-native-gesture-handler';
+import './src/i18n'; // Initialize i18n
 
 import { ThemeProvider } from './src/context/ThemeContext';
 import NavigationProvider from './src/navigation/NavigationProvider';

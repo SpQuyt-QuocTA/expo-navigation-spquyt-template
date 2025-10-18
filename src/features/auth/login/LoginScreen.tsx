@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AUTH_ROUTES } from '@/navigation/routes';
 import { useLogin } from './hooks/useLogin';
@@ -15,6 +16,7 @@ interface LoginFormData {
 }
 
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { login, loading } = useLogin();
   const { control, handleSubmit } = useForm<LoginFormData>();
@@ -26,13 +28,13 @@ export default function LoginScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-6 justify-center gap-y-4">
-        <Text className="text-3xl font-bold mb-8 text-foreground">Login</Text>
+        <Text className="text-3xl font-bold mb-8 text-foreground">{t('auth.login')}</Text>
 
         <FormInput
           control={control}
           name="email"
-          label="Email"
-          placeholder="Enter your email"
+          label={t('auth.email')}
+          placeholder={t('auth.enterEmail')}
           keyboardType="email-address"
           autoCapitalize="none"
         />
@@ -40,25 +42,25 @@ export default function LoginScreen() {
         <FormInput
           control={control}
           name="password"
-          label="Password"
-          placeholder="Enter your password"
+          label={t('auth.password')}
+          placeholder={t('auth.enterPassword')}
           secureTextEntry
         />
 
-        <BaseButton onPress={handleSubmit(onSubmit)} title="Login" />
+        <BaseButton onPress={handleSubmit(onSubmit)} title={t('auth.login')} />
 
         <TouchableOpacity
           onPress={() => navigation.navigate(AUTH_ROUTES.SIGN_UP)}
           className="mt-4"
         >
           <Text className="text-center text-foreground-secondary">
-            Don't have an account?{' '}
-            <Text className="text-primary font-semibold">Sign Up</Text>
+            {t('auth.dontHaveAccount')}{' '}
+            <Text className="text-primary font-semibold">{t('auth.signUp')}</Text>
           </Text>
         </TouchableOpacity>
       </View>
 
-      <OverlayLoading visible={loading} message="Logging in..." />
+      <OverlayLoading visible={loading} message={t('auth.loggingIn')} />
     </SafeAreaView>
   );
 }

@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { APP_ROUTES } from '@/navigation/routes';
@@ -9,9 +10,11 @@ import { userStore } from '@/store/userStore';
 import Header from '@/components/header/Header';
 import BaseButton from '@/components/button/BaseButton';
 import ThemeToggle from '@/components/theme-toggle/ThemeToggle';
+import LanguageSelector from '@/components/language-selector/LanguageSelector';
 import { ArrowRight } from '@/components/icons';
 
 export default function OverviewScreen() {
+  const { t } = useTranslation();
   const navigation = useNavigation<OverviewScreenNavigationProp>();
   const { items, isLoading } = useItems();
   const { logout } = useLogout();
@@ -20,11 +23,15 @@ export default function OverviewScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background" edges={['top']}>
       <Header
-        title="Overview"
-        leftElement={<ThemeToggle containerClassName="h-8 px-2 py-1" textClassName="text-xs" />}
+        title={t('overview.title')}
+        leftElement={
+          <View className="flex-row gap-x-2">
+            <ThemeToggle containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
+          </View>
+        }
         rightElement={
           <BaseButton
-            title="Logout"
+            title={t('common.logout')}
             onPress={logout}
             containerClassName="min-w-0 h-8 bg-transparent px-3 py-1"
             textClassName="text-sm font-semibold text-error"
@@ -33,12 +40,14 @@ export default function OverviewScreen() {
         showBorder
       />
 
+      <LanguageSelector containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
+
       {/* User Info Card */}
       {user && (
         <View className="mx-4 mt-4 rounded-lg border border-border bg-blue-50 p-4">
           <View className="flex-row items-center gap-x-2">
             <View>
-              <Text className="text-lg font-bold text-foreground">Welcome back</Text>
+              <Text className="text-lg font-bold text-foreground">{t('overview.welcomeBack')}</Text>
             </View>
             <View className="h-12 w-12 items-center justify-center rounded-full bg-primary">
               <Text className="text-lg font-bold text-white">
@@ -82,7 +91,7 @@ export default function OverviewScreen() {
         )}
         ListEmptyComponent={
           <View className="items-center justify-center py-12">
-            <Text className="text-foreground-secondary">No items available</Text>
+            <Text className="text-foreground-secondary">{t('overview.noItems')}</Text>
           </View>
         }
         refreshing={isLoading}
