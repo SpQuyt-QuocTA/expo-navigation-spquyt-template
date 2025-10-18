@@ -34,6 +34,8 @@ module.exports = {
       tsconfigPaths: true,
     },
     plugins: [
+      "expo-asset",
+      "expo-font",
       [
         "expo-localization",
         {
