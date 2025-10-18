@@ -97,7 +97,7 @@ export const borderRadius = {
 export const input = {
   height: spacing[11],              // h-11: 2.75rem = 39px
   fontSize: fontSize.base,          // text-base: 1rem = 14px
-  paddingHorizontal: spacing[4],    // px-4: 1rem = 14px
+  paddingHorizontal: spacing[2],    // px-2: 0.5rem = 7px
   paddingVertical: spacing[3],      // py-3: 0.75rem = 11px
   borderRadius: borderRadius.lg,    // rounded-lg: 0.5rem = 7px
   borderWidth: 1,

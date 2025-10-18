@@ -41,7 +41,7 @@ const BaseInput = forwardRef<TextInput, BaseInputProps>(
           <TextInput
             ref={ref}
             className={cn(
-              'h-11 px-4 rounded-lg border text-base',
+              'h-11 px-2 rounded-lg border text-base leading-tight',
               error
                 ? 'border-error bg-red-50'
                 : editable
