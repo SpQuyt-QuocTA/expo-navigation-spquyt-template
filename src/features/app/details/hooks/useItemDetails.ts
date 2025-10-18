@@ -10,7 +10,6 @@ export const useItemDetails = (itemId: string) => {
     const fetchItemDetails = () => {
       setIsLoading(true);
 
-      // Mock data
       const mockData: Record<string, IItemDetail> = {
         '1': {
           id: '1',

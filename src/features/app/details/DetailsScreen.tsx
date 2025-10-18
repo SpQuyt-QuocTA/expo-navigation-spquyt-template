@@ -38,7 +38,6 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
       <Header title={item.name} useDefaultBack showBorder />
 
       <ScrollView className="flex-1" contentContainerClassName="p-6">
-        {/* Category Badge */}
         <View className="mb-4">
           <BaseText
             text={item.category}
@@ -49,19 +48,15 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
           />
         </View>
 
-        {/* Title */}
         <BaseText text={item.name} variant="h3" className="mb-2" />
 
-        {/* Description */}
         <BaseText text={item.description} variant="body" color="foreground-secondary" className="mb-6" />
 
-        {/* Details Section */}
         <View className="mb-6">
           <BaseText i18nKey="details.about" variant="h4" className="mb-2" />
           <BaseText text={item.details} variant="body" color="foreground-secondary" className="leading-6" />
         </View>
 
-        {/* Features Section */}
         <View className="mb-6">
           <BaseText i18nKey="details.keyFeatures" variant="h4" className="mb-3" />
           {item.features.map((feature, index) => (
@@ -72,7 +67,6 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
           ))}
         </View>
 
-        {/* Additional Info Card */}
         <View className="rounded-lg border border-border bg-background-secondary p-4">
           <BaseText i18nKey="details.itemId" variant="bodySmall" bold className="mb-1" />
           <BaseText text={item.id} variant="bodySmall" color="foreground-secondary" className="font-mono" />

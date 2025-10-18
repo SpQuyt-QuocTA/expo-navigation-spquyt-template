@@ -45,7 +45,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
         <>
           {leftIcon && <View className="mr-2">{leftIcon}</View>}
 
-          {title && <BaseText text={title} bold className={textClassName} />}
+          {title && <BaseText text={title} bold className={finalTextStyles} />}
 
           {children}
 

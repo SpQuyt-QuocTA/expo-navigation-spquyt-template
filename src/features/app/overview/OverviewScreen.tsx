@@ -27,7 +27,6 @@ export default function OverviewScreen() {
         title={t('overview.title')}
         leftElement={
           <View className="flex-row gap-x-2">
-            <LanguageSelector containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
             <ThemeToggle containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
           </View>
         }
@@ -42,7 +41,6 @@ export default function OverviewScreen() {
         showBorder
       />
 
-      {/* User Info Card */}
       {user && (
         <View className="mx-4 mt-4 rounded-lg border border-border bg-blue-50 p-4">
           <View className="flex-row items-center gap-x-2">
@@ -61,6 +59,10 @@ export default function OverviewScreen() {
           </View>
         </View>
       )}
+
+      <View className='my-4 mx-4'>
+        <LanguageSelector containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
+      </View>
 
       <FlatList
         data={items}
