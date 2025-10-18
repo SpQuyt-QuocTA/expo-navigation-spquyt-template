@@ -19,6 +19,7 @@ interface ThemeColors {
   error: string;
   warning: string;
   inputPlaceholder: string;
+  inputError: string;
 }
 
 interface ThemeContextType {
@@ -81,6 +82,7 @@ const themeColors = {
     error: lightColors.error,
     warning: lightColors.warning,
     inputPlaceholder: lightColors.foregroundSecondary,
+    inputError: lightColors.inputError,
   },
   dark: {
     primary: darkColors.primary,
@@ -93,6 +95,7 @@ const themeColors = {
     error: darkColors.error,
     warning: darkColors.warning,
     inputPlaceholder: darkColors.foregroundSecondary,
+    inputError: darkColors.inputError,
   },
 };
 

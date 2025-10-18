@@ -1,0 +1,129 @@
+diff --git a/node_modules/react-native-element-dropdown/lib/typescript/components/Dropdown/index.d.ts b/node_modules/react-native-element-dropdown/lib/typescript/components/Dropdown/index.d.ts
+index 4e74df8..a56ed18 100644
+--- a/node_modules/react-native-element-dropdown/lib/typescript/components/Dropdown/index.d.ts
++++ b/node_modules/react-native-element-dropdown/lib/typescript/components/Dropdown/index.d.ts
+@@ -1,5 +1,5 @@
+ import React from 'react';
+ import { DropdownProps, IDropdownRef } from './model';
+-declare const DropdownComponent: React.ForwardRefExoticComponent<Pick<DropdownProps<any>, "fontFamily" | "testID" | "maxHeight" | "minHeight" | "backgroundColor" | "style" | "value" | "placeholder" | "iconStyle" | "onChangeText" | "renderLeftIcon" | "renderRightIcon" | "onBlur" | "onFocus" | "accessibilityLabel" | "onChange" | "search" | "renderItem" | "data" | "inverted" | "showsVerticalScrollIndicator" | "itemTestIDField" | "containerStyle" | "placeholderStyle" | "selectedTextStyle" | "selectedTextProps" | "itemContainerStyle" | "itemTextStyle" | "inputSearchStyle" | "iconColor" | "activeColor" | "labelField" | "valueField" | "searchField" | "searchPlaceholder" | "searchPlaceholderTextColor" | "disable" | "autoScroll" | "dropdownPosition" | "flatListProps" | "keyboardAvoiding" | "confirmSelectItem" | "itemAccessibilityLabelField" | "mode" | "closeModalWhenSelectedItem" | "excludeItems" | "excludeSearchItems" | "renderInputSearch" | "searchQuery" | "onConfirmSelectItem"> & React.RefAttributes<IDropdownRef>>;
++declare const DropdownComponent: React.ForwardRefExoticComponent<Pick<DropdownProps<any>, "fontFamily" | "testID" | "maxHeight" | "minHeight" | "backgroundColor" | "style" | "value" | "placeholder" | "iconStyle" | "onChangeText" | "renderLeftIcon" | "renderRightIcon" | "onBlur" | "onFocus" | "accessibilityLabel" | "onChange" | "search" | "renderItem" | "data" | "inverted" | "showsVerticalScrollIndicator" | "itemTestIDField" | "containerStyle" | "placeholderStyle" | "selectedTextStyle" | "selectedTextProps" | "itemContainerStyle" | "itemTextStyle" | "inputSearchStyle" | "inputSearchContainerStyle" | "iconColor" | "activeColor" | "labelField" | "valueField" | "searchField" | "searchPlaceholder" | "searchPlaceholderTextColor" | "disable" | "autoScroll" | "dropdownPosition" | "flatListProps" | "keyboardAvoiding" | "confirmSelectItem" | "itemAccessibilityLabelField" | "mode" | "closeModalWhenSelectedItem" | "excludeItems" | "excludeSearchItems" | "renderInputSearch" | "searchQuery" | "onConfirmSelectItem"> & React.RefAttributes<IDropdownRef>>;
+ export default DropdownComponent;
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-element-dropdown/lib/typescript/index.d.ts b/node_modules/react-native-element-dropdown/lib/typescript/index.d.ts
+index 6af30b8..d16a8a3 100644
+--- a/node_modules/react-native-element-dropdown/lib/typescript/index.d.ts
++++ b/node_modules/react-native-element-dropdown/lib/typescript/index.d.ts
+@@ -1,8 +1,8 @@
+ import Dropdown from './components/Dropdown';
+ import MultiSelect from './components/MultiSelect';
+ import SelectCountry from './components/SelectCountry';
+-import { IDropdownRef } from './components/Dropdown/model';
++import { IDropdownRef, DropdownProps } from './components/Dropdown/model';
+ import { IMultiSelectRef } from './components/MultiSelect/model';
+ import { ISelectCountryRef } from './components/SelectCountry/model';
+-export { Dropdown, MultiSelect, SelectCountry, IDropdownRef, IMultiSelectRef, ISelectCountryRef, };
++export { Dropdown, MultiSelect, SelectCountry, IDropdownRef, IMultiSelectRef, ISelectCountryRef, DropdownProps, };
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-element-dropdown/src/components/Dropdown/index.tsx b/node_modules/react-native-element-dropdown/src/components/Dropdown/index.tsx
+index 2a73f2f..9a212d2 100644
+--- a/node_modules/react-native-element-dropdown/src/components/Dropdown/index.tsx
++++ b/node_modules/react-native-element-dropdown/src/components/Dropdown/index.tsx
+@@ -54,6 +54,7 @@ const DropdownComponent = React.forwardRef<IDropdownRef, DropdownProps<any>>(
+       selectedTextStyle,
+       itemContainerStyle,
+       itemTextStyle,
++      inputSearchContainerStyle,
+       inputSearchStyle,
+       iconStyle,
+       selectedTextProps = {},
+@@ -555,7 +556,7 @@ const DropdownComponent = React.forwardRef<IDropdownRef, DropdownProps<any>>(
+             <CInput
+               testID={testID + ' input'}
+               accessibilityLabel={accessibilityLabel + ' input'}
+-              style={[styles.input, inputSearchStyle]}
++              style={[styles.inputContainer, inputSearchContainerStyle]}
+               inputStyle={[inputSearchStyle, font()]}
+               value={searchText}
+               autoCorrect={false}
+@@ -581,6 +582,7 @@ const DropdownComponent = React.forwardRef<IDropdownRef, DropdownProps<any>>(
+       iconColor,
+       iconStyle,
+       inputSearchStyle,
++      inputSearchContainerStyle,
+       onChangeText,
+       onSearch,
+       renderInputSearch,
+@@ -695,9 +697,9 @@ const DropdownComponent = React.forwardRef<IDropdownRef, DropdownProps<any>>(
+                       !isTopPosition
+                         ? { paddingTop: extendHeight }
+                         : {
+-                            justifyContent: 'flex-end',
+-                            paddingBottom: extendHeight,
+-                          },
++                          justifyContent: 'flex-end',
++                          paddingBottom: extendHeight,
++                        },
+                       isFull && styles.fullScreen,
+                     ])}
+                   >
+diff --git a/node_modules/react-native-element-dropdown/src/components/Dropdown/model.ts b/node_modules/react-native-element-dropdown/src/components/Dropdown/model.ts
+index e4212a9..a3f3f48 100644
+--- a/node_modules/react-native-element-dropdown/src/components/Dropdown/model.ts
++++ b/node_modules/react-native-element-dropdown/src/components/Dropdown/model.ts
+@@ -15,10 +15,10 @@ export type IDropdownRef = {
+ 
+ export interface DropdownProps<T> {
+   ref?:
+-    | React.RefObject<IDropdownRef>
+-    | React.MutableRefObject<IDropdownRef>
+-    | null
+-    | undefined;
++  | React.RefObject<IDropdownRef>
++  | React.MutableRefObject<IDropdownRef>
++  | null
++  | undefined;
+   testID?: string;
+   itemTestIDField?: string;
+   style?: StyleProp<ViewStyle>;
+@@ -28,6 +28,7 @@ export interface DropdownProps<T> {
+   selectedTextProps?: TextProps;
+   itemContainerStyle?: StyleProp<ViewStyle>;
+   itemTextStyle?: StyleProp<TextStyle>;
++  inputSearchContainerStyle?: StyleProp<ViewStyle>;
+   inputSearchStyle?: StyleProp<TextStyle>;
+   iconStyle?: StyleProp<ImageStyle>;
+   maxHeight?: number;
+diff --git a/node_modules/react-native-element-dropdown/src/components/Dropdown/styles.ts b/node_modules/react-native-element-dropdown/src/components/Dropdown/styles.ts
+index 2c83bdd..bb97f08 100644
+--- a/node_modules/react-native-element-dropdown/src/components/Dropdown/styles.ts
++++ b/node_modules/react-native-element-dropdown/src/components/Dropdown/styles.ts
+@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
+     width: 20,
+     height: 20,
+   },
+-  input: {
++  inputContainer: {
+     borderWidth: 0.5,
+     borderColor: '#DDDDDD',
+     paddingHorizontal: 8,
+diff --git a/node_modules/react-native-element-dropdown/src/index.tsx b/node_modules/react-native-element-dropdown/src/index.tsx
+index 9b363a6..3d9fde7 100644
+--- a/node_modules/react-native-element-dropdown/src/index.tsx
++++ b/node_modules/react-native-element-dropdown/src/index.tsx
+@@ -1,7 +1,7 @@
+ import Dropdown from './components/Dropdown';
+ import MultiSelect from './components/MultiSelect';
+ import SelectCountry from './components/SelectCountry';
+-import { IDropdownRef } from './components/Dropdown/model';
++import { IDropdownRef, DropdownProps } from './components/Dropdown/model';
+ import { IMultiSelectRef } from './components/MultiSelect/model';
+ import { ISelectCountryRef } from './components/SelectCountry/model';
+ 
+@@ -12,4 +12,5 @@ export {
+   IDropdownRef,
+   IMultiSelectRef,
+   ISelectCountryRef,
++  DropdownProps,
+ };

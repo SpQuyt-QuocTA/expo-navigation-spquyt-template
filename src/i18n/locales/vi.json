@@ -43,6 +43,10 @@
   "theme": {
     "light": "☀️ Sáng",
     "dark": "🌙 Tối"
+  },
+  "dropdown": {
+    "selectOption": "Chọn một tùy chọn",
+    "search": "Tìm kiếm..."
   }
 }
 

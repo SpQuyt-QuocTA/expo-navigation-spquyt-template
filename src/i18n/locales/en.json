@@ -43,6 +43,10 @@
   "theme": {
     "light": "☀️ Light",
     "dark": "🌙 Dark"
+  },
+  "dropdown": {
+    "selectOption": "Select an option",
+    "search": "Search..."
   }
 }
 

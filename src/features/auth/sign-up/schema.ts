@@ -13,6 +13,9 @@ export const signUpSchema = z
       .string({ required_error: 'Email is required' })
       .min(1, 'Email is required')
       .email('Invalid email address'),
+    country: z
+      .string({ required_error: 'Country is required' })
+      .min(1, 'Please select a country'),
     password: z
       .string({ required_error: 'Password is required' })
       .min(1, 'Password is required')

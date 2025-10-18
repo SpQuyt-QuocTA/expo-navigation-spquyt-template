@@ -11,9 +11,54 @@ import { signUpSchema } from './schema';
 import FormInput from '@/components/form/input/FormInput';
 import FormCheckbox from '@/components/form/checkbox/FormCheckbox';
 import FormRadioGroup from '@/components/form/radio/FormRadioGroup';
+import FormDropdown from '@/components/form/dropdown/FormDropdown';
 import BaseButton from '@/components/button/BaseButton';
 import BaseText from '@/components/text/BaseText';
 import OverlayLoading from '@/components/overlay-loading/OverlayLoading';
+import { DropdownItem } from '@/components/dropdown/types';
+
+const COUNTRIES: DropdownItem[] = [
+  { label: 'United States', value: 'us' },
+  { label: 'United Kingdom', value: 'uk' },
+  { label: 'Canada', value: 'ca' },
+  { label: 'Australia', value: 'au' },
+  { label: 'Germany', value: 'de' },
+  { label: 'France', value: 'fr' },
+  { label: 'Japan', value: 'jp' },
+  { label: 'China', value: 'cn' },
+  { label: 'India', value: 'in' },
+  { label: 'Vietnam', value: 'vn' },
+  { label: 'Singapore', value: 'sg' },
+  { label: 'South Korea', value: 'kr' },
+  { label: 'Thailand', value: 'th' },
+  { label: 'Malaysia', value: 'my' },
+  { label: 'Philippines', value: 'ph' },
+  { label: 'Indonesia', value: 'id' },
+  { label: 'Brazil', value: 'br' },
+  { label: 'Mexico', value: 'mx' },
+  { label: 'Spain', value: 'es' },
+  { label: 'Italy', value: 'it' },
+];
+
+const INDUSTRIES: DropdownItem[] = [
+  { label: 'Technology & Software', value: 'technology' },
+  { label: 'Healthcare & Medical', value: 'healthcare' },
+  { label: 'Finance & Banking', value: 'finance' },
+  { label: 'Education', value: 'education' },
+  { label: 'Retail & E-commerce', value: 'retail' },
+  { label: 'Manufacturing', value: 'manufacturing' },
+  { label: 'Real Estate', value: 'realestate' },
+  { label: 'Hospitality & Tourism', value: 'hospitality' },
+  { label: 'Transportation & Logistics', value: 'transportation' },
+  { label: 'Marketing & Advertising', value: 'marketing' },
+  { label: 'Construction', value: 'construction' },
+  { label: 'Entertainment & Media', value: 'entertainment' },
+  { label: 'Agriculture', value: 'agriculture' },
+  { label: 'Energy & Utilities', value: 'energy' },
+  { label: 'Legal Services', value: 'legal' },
+  { label: 'Consulting', value: 'consulting' },
+  { label: 'Other', value: 'other' },
+];
 
 export default function SignUpScreen() {
   const { t } = useTranslation();
@@ -29,6 +74,7 @@ export default function SignUpScreen() {
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       accountType: 'personal',
+      country: '',
       skills: [{ name: '', level: 'beginner' }],
       newsletter: false,
       terms: false,
@@ -84,6 +130,18 @@ export default function SignUpScreen() {
               placeholder="Enter your email"
               keyboardType="email-address"
               autoCapitalize="none"
+              containerClassName="mb-4"
+            />
+
+            <FormDropdown
+              control={control}
+              name="country"
+              label="Country"
+              data={COUNTRIES}
+              placeholder="Select your country"
+              search
+              searchPlaceholder="Search countries..."
+              required
               containerClassName="mb-4"
             />
 
@@ -154,11 +212,16 @@ export default function SignUpScreen() {
                 containerClassName="mb-4"
               />
 
-              <FormInput
+              <FormDropdown
                 control={control}
                 name="industry"
                 label="Industry"
-                placeholder="Enter your industry"
+                data={INDUSTRIES}
+                placeholder="Select your industry"
+                search
+                searchPlaceholder="Search industries..."
+                required
+                helperText="Choose the industry that best describes your business"
                 containerClassName="mb-4"
               />
             </View>
