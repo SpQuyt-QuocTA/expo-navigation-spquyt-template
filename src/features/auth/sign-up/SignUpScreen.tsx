@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AUTH_ROUTES } from '@/navigation/routes';
 import { useSignUp } from './hooks/useSignUp';
 import { SignUpScreenNavigationProp } from './types';
-import FormInput from '@/components/form-input/FormInput';
+import FormInput from '@/components/form/input/FormInput';
 import BaseButton from '@/components/button/BaseButton';
 import OverlayLoading from '@/components/overlay-loading/OverlayLoading';
 import BaseText from '@/components/text/BaseText';
