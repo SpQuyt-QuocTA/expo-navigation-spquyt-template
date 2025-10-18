@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { BaseInputProps } from './types';
+import BaseText from '@/components/text/BaseText';
 
 const BaseInput = forwardRef<TextInput, BaseInputProps>(
   (
@@ -36,10 +37,10 @@ const BaseInput = forwardRef<TextInput, BaseInputProps>(
       <View className={`${containerClassName}`.trim()}>
         {/* Label */}
         {label && (
-          <Text className={`mb-1.5 text-sm font-medium text-foreground-secondary ${labelClassName}`.trim()}>
+          <BaseText variant="label" color="foreground-secondary" className={`mb-1.5 ${labelClassName}`.trim()}>
             {label}
-            {required && <Text className="text-error"> *</Text>}
-          </Text>
+            {required && <BaseText text=" *" color="error" />}
+          </BaseText>
         )}
 
         {/* Input Container */}
@@ -62,11 +63,11 @@ const BaseInput = forwardRef<TextInput, BaseInputProps>(
         </View>
 
         {/* Error Message */}
-        {error && <Text className={`mt-1 text-xs text-error ${errorClassName}`.trim()}>{error}</Text>}
+        {error && <BaseText text={error} variant="caption" color="error" className={`mt-1 ${errorClassName}`.trim()} />}
 
         {/* Helper Text */}
         {helperText && !error && (
-          <Text className={`mt-1 text-xs text-foreground-secondary ${helperClassName}`.trim()}>{helperText}</Text>
+          <BaseText text={helperText} variant="caption" color="foreground-secondary" className={`mt-1 ${helperClassName}`.trim()} />
         )}
       </View>
     );

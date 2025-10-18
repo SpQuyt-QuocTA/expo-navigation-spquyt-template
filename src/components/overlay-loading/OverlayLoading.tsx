@@ -1,6 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, View } from 'react-native';
 import { OverlayLoadingProps } from './types';
+import BaseText from '@/components/text/BaseText';
 
 const OverlayLoading: React.FC<OverlayLoadingProps> = ({
   visible,
@@ -23,7 +24,7 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = ({
       <View className={finalOverlayStyles} {...viewProps}>
         <View className={finalContainerStyles}>
           <ActivityIndicator size="large" color={loadingColor} />
-          {message && <Text className={finalMessageStyles}>{message}</Text>}
+          {message && <BaseText text={message} align="center" variant="body" color="foreground-secondary" className={`mt-4 ${messageClassName}`.trim()} />}
         </View>
       </View>
     </Modal>

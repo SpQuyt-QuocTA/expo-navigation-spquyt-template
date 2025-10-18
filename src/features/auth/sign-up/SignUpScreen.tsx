@@ -8,7 +8,8 @@ import { SignUpScreenNavigationProp } from './types';
 import FormInput from '@/components/form-input/FormInput';
 import BaseButton from '@/components/button/BaseButton';
 import OverlayLoading from '@/components/overlay-loading/OverlayLoading';
-import { Text, TouchableOpacity, View } from 'react-native';
+import BaseText from '@/components/text/BaseText';
+import { TouchableOpacity, View } from 'react-native';
 
 interface SignUpFormData {
   name: string;
@@ -30,7 +31,7 @@ export default function SignUpScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-6 justify-center">
-        <Text className="text-3xl font-bold mb-8 text-foreground">{t('auth.createAccount')}</Text>
+        <BaseText i18nKey="auth.createAccount" variant="h2" className="mb-8" />
 
         <FormInput
           control={control}
@@ -74,10 +75,10 @@ export default function SignUpScreen() {
           onPress={() => navigation.navigate(AUTH_ROUTES.LOGIN)}
           className="mt-4"
         >
-          <Text className="text-center text-foreground-secondary">
+          <BaseText align="center" color="foreground-secondary" className="mt-4">
             {t('auth.alreadyHaveAccount')}{' '}
-            <Text className="text-primary font-semibold">{t('auth.login')}</Text>
-          </Text>
+            <BaseText color="primary" bold>{t('auth.login')}</BaseText>
+          </BaseText>
         </TouchableOpacity>
       </View>
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { BaseButtonProps } from './types';
+import BaseText from '@/components/text/BaseText';
 
 const BaseButton: React.FC<BaseButtonProps> = ({
   title,
@@ -44,7 +45,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
         <>
           {leftIcon && <View className="mr-2">{leftIcon}</View>}
 
-          {title && <Text className={finalTextStyles}>{title}</Text>}
+          {title && <BaseText text={title} bold className={textClassName} />}
 
           {children}
 

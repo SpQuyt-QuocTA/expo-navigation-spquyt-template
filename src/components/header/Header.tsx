@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HeaderProps } from './types';
 import { ArrowLeft } from '@/components/icons';
+import BaseText from '@/components/text/BaseText';
 
 const Header: React.FC<HeaderProps> = ({
   title,
@@ -47,9 +48,7 @@ const Header: React.FC<HeaderProps> = ({
       {/* Title - Centered */}
       {title && (
         <View className="flex-1 items-center">
-          <Text className={finalTitleStyles} numberOfLines={1}>
-            {title}
-          </Text>
+          <BaseText text={title} variant="bodyLarge" bold numberOfLines={1} className={titleClassName} />
         </View>
       )}
 

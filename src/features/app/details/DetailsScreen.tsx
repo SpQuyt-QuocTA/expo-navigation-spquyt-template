@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { DetailsScreenProps } from './types';
 import { useItemDetails } from './hooks/useItemDetails';
 import Header from '@/components/header/Header';
+import BaseText from '@/components/text/BaseText';
 
 export default function DetailsScreen({ route }: DetailsScreenProps) {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
       <SafeAreaView className="flex-1 bg-background" edges={['top']}>
         <Header title={t('details.title')} useDefaultBack showBorder />
         <View className="flex-1 items-center justify-center">
-          <Text className="text-foreground-secondary">{t('details.itemNotFound')}</Text>
+          <BaseText i18nKey="details.itemNotFound" color="foreground-secondary" />
         </View>
       </SafeAreaView>
     );
@@ -39,38 +40,42 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
       <ScrollView className="flex-1" contentContainerClassName="p-6">
         {/* Category Badge */}
         <View className="mb-4">
-          <Text className="inline-flex self-start rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-primary">
-            {item.category}
-          </Text>
+          <BaseText
+            text={item.category}
+            variant="caption"
+            color="primary"
+            bold
+            className="inline-flex self-start rounded-full bg-blue-100 px-3 py-1"
+          />
         </View>
 
         {/* Title */}
-        <Text className="mb-2 text-2xl font-bold text-foreground">{item.name}</Text>
+        <BaseText text={item.name} variant="h3" className="mb-2" />
 
         {/* Description */}
-        <Text className="mb-6 text-base text-foreground-secondary">{item.description}</Text>
+        <BaseText text={item.description} variant="body" color="foreground-secondary" className="mb-6" />
 
         {/* Details Section */}
         <View className="mb-6">
-          <Text className="mb-2 text-lg font-semibold text-foreground">{t('details.about')}</Text>
-          <Text className="text-base leading-6 text-foreground-secondary">{item.details}</Text>
+          <BaseText i18nKey="details.about" variant="h4" className="mb-2" />
+          <BaseText text={item.details} variant="body" color="foreground-secondary" className="leading-6" />
         </View>
 
         {/* Features Section */}
         <View className="mb-6">
-          <Text className="mb-3 text-lg font-semibold text-foreground">{t('details.keyFeatures')}</Text>
+          <BaseText i18nKey="details.keyFeatures" variant="h4" className="mb-3" />
           {item.features.map((feature, index) => (
             <View key={index} className="mb-2 flex-row items-start">
-              <Text className="mr-2 text-primary">•</Text>
-              <Text className="flex-1 text-base text-foreground-secondary">{feature}</Text>
+              <BaseText text="•" color="primary" className="mr-2" />
+              <BaseText text={feature} variant="body" color="foreground-secondary" className="flex-1" />
             </View>
           ))}
         </View>
 
         {/* Additional Info Card */}
         <View className="rounded-lg border border-border bg-background-secondary p-4">
-          <Text className="mb-1 text-sm font-medium text-foreground">{t('details.itemId')}</Text>
-          <Text className="font-mono text-sm text-foreground-secondary">{item.id}</Text>
+          <BaseText i18nKey="details.itemId" variant="bodySmall" bold className="mb-1" />
+          <BaseText text={item.id} variant="bodySmall" color="foreground-secondary" className="font-mono" />
         </View>
       </ScrollView>
     </SafeAreaView>

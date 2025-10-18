@@ -1,8 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { languageStore } from '@/store/languageStore';
 import { LANGUAGES, LanguageCode } from '@/i18n';
 import { LanguageSelectorProps } from './types';
+import BaseText from '@/components/text/BaseText';
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   containerClassName = '',
@@ -25,9 +26,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       className={`rounded-lg border border-border bg-background-secondary px-4 py-2 ${containerClassName}`.trim()}
       activeOpacity={0.7}
     >
-      <Text className={`font-semibold text-foreground ${textClassName}`.trim()}>
-        🌐 {displayName}
-      </Text>
+      <BaseText text={`🌐 ${displayName}`} bold className={textClassName} />
     </TouchableOpacity>
   );
 };

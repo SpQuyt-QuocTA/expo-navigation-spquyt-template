@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { APP_ROUTES } from '@/navigation/routes';
 import { OverviewScreenNavigationProp } from './types';
 import { useItems } from './hooks/useItems';
@@ -11,6 +11,7 @@ import Header from '@/components/header/Header';
 import BaseButton from '@/components/button/BaseButton';
 import ThemeToggle from '@/components/theme-toggle/ThemeToggle';
 import LanguageSelector from '@/components/language-selector/LanguageSelector';
+import BaseText from '@/components/text/BaseText';
 import { ArrowRight } from '@/components/icons';
 
 export default function OverviewScreen() {
@@ -26,6 +27,7 @@ export default function OverviewScreen() {
         title={t('overview.title')}
         leftElement={
           <View className="flex-row gap-x-2">
+            <LanguageSelector containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
             <ThemeToggle containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
           </View>
         }
@@ -40,23 +42,21 @@ export default function OverviewScreen() {
         showBorder
       />
 
-      <LanguageSelector containerClassName="h-8 px-2 py-1" textClassName="text-xs" />
-
       {/* User Info Card */}
       {user && (
         <View className="mx-4 mt-4 rounded-lg border border-border bg-blue-50 p-4">
           <View className="flex-row items-center gap-x-2">
             <View>
-              <Text className="text-lg font-bold text-foreground">{t('overview.welcomeBack')}</Text>
+              <BaseText i18nKey="overview.welcomeBack" variant="bodyLarge" bold />
             </View>
             <View className="h-12 w-12 items-center justify-center rounded-full bg-primary">
-              <Text className="text-lg font-bold text-white">
+              <BaseText variant="bodyLarge" bold className="text-white">
                 {user.name?.charAt(0).toUpperCase() || user.email.charAt(0).toUpperCase()}
-              </Text>
+              </BaseText>
             </View>
             <View className="flex-1">
-              <Text className="text-base font-semibold text-foreground">{user.name || 'User'}</Text>
-              <Text className="text-sm text-foreground-secondary">{user.email}</Text>
+              <BaseText text={user.name || 'User'} variant="body" bold />
+              <BaseText text={user.email} variant="bodySmall" color="foreground-secondary" />
             </View>
           </View>
         </View>
@@ -77,10 +77,10 @@ export default function OverviewScreen() {
           >
             <View className="flex-row items-start justify-between">
               <View className="flex-1">
-                <Text className="text-lg font-semibold text-foreground">{item.name}</Text>
-                <Text className="mt-1 text-sm text-foreground-secondary">{item.description}</Text>
+                <BaseText text={item.name} variant="bodyLarge" bold />
+                <BaseText text={item.description} variant="bodySmall" color="foreground-secondary" className="mt-1" />
                 <View className="mt-2">
-                  <Text className="text-xs font-medium text-primary">{item.category}</Text>
+                  <BaseText text={item.category} variant="caption" color="primary" bold />
                 </View>
               </View>
               <View className="ml-3">
@@ -91,7 +91,7 @@ export default function OverviewScreen() {
         )}
         ListEmptyComponent={
           <View className="items-center justify-center py-12">
-            <Text className="text-foreground-secondary">{t('overview.noItems')}</Text>
+            <BaseText i18nKey="overview.noItems" color="foreground-secondary" />
           </View>
         }
         refreshing={isLoading}
