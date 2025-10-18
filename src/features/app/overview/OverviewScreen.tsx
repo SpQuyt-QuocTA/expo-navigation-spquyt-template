@@ -7,7 +7,7 @@ import { OverviewScreenNavigationProp } from './types';
 import { useItems } from './hooks/useItems';
 import { useLogout } from './hooks/useLogout';
 import { userStore } from '@/store/userStore';
-import Header from '@/components/header/Header';
+import BaseHeader from '@/components/header/BaseHeader';
 import BaseButton from '@/components/button/BaseButton';
 import ThemeToggle from '@/components/theme-toggle/ThemeToggle';
 import LanguageSelector from '@/components/language-selector/LanguageSelector';
@@ -23,7 +23,7 @@ export default function OverviewScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background" edges={['top']}>
-      <Header
+      <BaseHeader
         title={t('overview.title')}
         leftElement={
           <View className="flex-row gap-x-2">

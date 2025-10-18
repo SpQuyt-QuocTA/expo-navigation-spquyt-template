@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { BaseTextProps, TextVariant, TextColor } from './types';
+import { cn } from '@/utils/cn';
 
 /**
  * BaseText Component
@@ -25,62 +26,37 @@ import { BaseTextProps, TextVariant, TextColor } from './types';
  * <BaseText i18nKey="auth.email" className="text-2xl text-red-500" />
  */
 const BaseText: React.FC<BaseTextProps> = ({
-  // i18n props
   i18nKey,
   i18nValues,
   text,
-
-  // Style variants
   variant = 'body',
   color = 'foreground',
   bold = false,
   italic = false,
   underline = false,
   align = 'left',
-
-  // Custom styling
   className = '',
-
-  // Children
   children,
-
-  // Accessibility
   testID,
   accessibilityLabel,
   accessibilityHint,
-
-  // All other Text props
   ...textProps
 }) => {
   const { t } = useTranslation();
 
-  // Determine text content
-  const content = i18nKey
-    ? t(i18nKey, i18nValues)
-    : text
-      ? text
-      : children;
-
-  // Build variant styles
-  const variantStyles = getVariantStyles(variant);
-
-  // Build color styles
-  const colorStyles = getColorStyles(color);
-
-  // Build modifier styles
-  const modifierStyles = [
-    bold && 'font-bold',
-    italic && 'italic',
-    underline && 'underline',
-    getAlignStyles(align),
-  ].filter(Boolean).join(' ');
-
-  // Combine all styles
-  const finalClassName = `${variantStyles} ${colorStyles} ${modifierStyles} ${className}`.trim();
+  const content = i18nKey ? t(i18nKey, i18nValues) : text ?? children;
 
   return (
     <Text
-      className={finalClassName}
+      className={cn(
+        getVariantStyles(variant),
+        getColorStyles(color),
+        bold && 'font-bold',
+        italic && 'italic',
+        underline && 'underline',
+        getAlignStyles(align),
+        className
+      )}
       testID={testID}
       accessibilityLabel={accessibilityLabel || (typeof content === 'string' ? content : undefined)}
       accessibilityHint={accessibilityHint}

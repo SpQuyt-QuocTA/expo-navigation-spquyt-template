@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { BaseRadioProps, BaseRadioGroupProps } from './types';
 import BaseText from '@/components/text/BaseText';
+import { cn } from '@/utils/cn';
 
 /**
  * BaseRadio Component
@@ -75,21 +76,16 @@ const BaseRadio: React.FC<BaseRadioProps> = ({
     }
   };
 
-  // Radio circle styles
-  const circleBaseStyles = 'w-5 h-5 rounded-full border-2 items-center justify-center';
-  const circleStateStyles = error
-    ? 'border-error bg-red-50'
-    : isSelected
-      ? 'border-primary'
-      : 'border-input-border bg-input';
-  const circleDisabledStyles = disabled ? 'opacity-50' : '';
-  const finalCircleStyles = `${circleBaseStyles} ${circleStateStyles} ${circleDisabledStyles} ${radioClassName}`.trim();
-
   const renderRadio = () => (
-    <View className={finalCircleStyles}>
-      {isSelected && (
-        <View className="w-3 h-3 bg-primary rounded-full" />
+    <View
+      className={cn(
+        'w-5 h-5 rounded-full border-2 items-center justify-center',
+        error ? 'border-error bg-red-50' : isSelected ? 'border-primary' : 'border-input-border bg-input',
+        disabled && 'opacity-50',
+        radioClassName
       )}
+    >
+      {isSelected && <View className="w-3 h-3 bg-primary rounded-full" />}
     </View>
   );
 
@@ -100,7 +96,7 @@ const BaseRadio: React.FC<BaseRadioProps> = ({
         text={displayLabel}
         variant="body"
         color={disabled ? 'foreground-secondary' : 'foreground'}
-        className={`${labelPosition === 'left' ? 'mr-3' : 'ml-3'} ${labelClassName}`.trim()}
+        className={cn(labelPosition === 'left' ? 'mr-3' : 'ml-3', labelClassName)}
       />
     );
   };
@@ -192,11 +188,9 @@ export const BaseRadioGroup: React.FC<BaseRadioGroupProps> = ({
   errorClassName = '',
   ...viewProps
 }) => {
-  const layoutStyles = direction === 'horizontal' ? 'flex-row gap-x-4' : 'gap-y-3';
-
   return (
     <View className={containerClassName} {...viewProps}>
-      <View className={layoutStyles}>
+      <View className={cn(direction === 'horizontal' ? 'flex-row gap-x-4' : 'gap-y-3')}>
         {options.map((option) => (
           <BaseRadio
             key={option.value}
@@ -211,14 +205,8 @@ export const BaseRadioGroup: React.FC<BaseRadioGroupProps> = ({
         ))}
       </View>
 
-      {/* Error Message */}
       {error && errorMessage && (
-        <BaseText
-          text={errorMessage}
-          variant="caption"
-          color="error"
-          className={`mt-2 ${errorClassName}`.trim()}
-        />
+        <BaseText text={errorMessage} variant="caption" color="error" className={cn('mt-2', errorClassName)} />
       )}
     </View>
   );

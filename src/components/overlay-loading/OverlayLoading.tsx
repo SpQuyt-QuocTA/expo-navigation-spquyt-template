@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator, Modal, View } from 'react-native';
 import { OverlayLoadingProps } from './types';
 import BaseText from '@/components/text/BaseText';
+import { cn } from '@/utils/cn';
 
 const OverlayLoading: React.FC<OverlayLoadingProps> = ({
   visible,
@@ -12,19 +13,20 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = ({
   messageClassName = '',
   ...viewProps
 }) => {
-  const defaultOverlayStyles = 'flex-1 items-center justify-center bg-black/50';
-  const finalOverlayStyles = `${defaultOverlayStyles} ${overlayClassName}`.trim();
-
-  const finalContainerStyles = `rounded-2xl bg-card p-6 shadow-lg ${containerClassName}`.trim();
-
-  const finalMessageStyles = `mt-4 text-center text-base text-foreground-secondary ${messageClassName}`.trim();
-
   return (
     <Modal transparent visible={visible} animationType="fade" statusBarTranslucent>
-      <View className={finalOverlayStyles} {...viewProps}>
-        <View className={finalContainerStyles}>
+      <View className={cn('flex-1 items-center justify-center bg-black/50', overlayClassName)} {...viewProps}>
+        <View className={cn('rounded-2xl bg-card p-6 shadow-lg', containerClassName)}>
           <ActivityIndicator size="large" color={loadingColor} />
-          {message && <BaseText text={message} align="center" variant="body" color="foreground-secondary" className={`mt-4 ${messageClassName}`.trim()} />}
+          {message && (
+            <BaseText
+              text={message}
+              align="center"
+              variant="body"
+              color="foreground-secondary"
+              className={cn('mt-4', messageClassName)}
+            />
+          )}
         </View>
       </View>
     </Modal>

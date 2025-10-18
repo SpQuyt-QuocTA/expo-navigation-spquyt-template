@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { DetailsScreenProps } from './types';
 import { useItemDetails } from './hooks/useItemDetails';
-import Header from '@/components/header/Header';
+import BaseHeader from '@/components/header/BaseHeader';
 import BaseText from '@/components/text/BaseText';
 
 export default function DetailsScreen({ route }: DetailsScreenProps) {
@@ -14,7 +14,7 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 bg-background" edges={['top']}>
-        <Header title={t('details.title')} useDefaultBack showBorder />
+        <BaseHeader title={t('details.title')} useDefaultBack showBorder />
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color="#3B82F6" />
         </View>
@@ -25,7 +25,7 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
   if (!item) {
     return (
       <SafeAreaView className="flex-1 bg-background" edges={['top']}>
-        <Header title={t('details.title')} useDefaultBack showBorder />
+        <BaseHeader title={t('details.title')} useDefaultBack showBorder />
         <View className="flex-1 items-center justify-center">
           <BaseText i18nKey="details.itemNotFound" color="foreground-secondary" />
         </View>
@@ -35,7 +35,7 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
 
   return (
     <SafeAreaView className="flex-1 bg-background" edges={['top']}>
-      <Header title={item.name} useDefaultBack showBorder />
+      <BaseHeader title={item.name} useDefaultBack showBorder />
 
       <ScrollView className="flex-1" contentContainerClassName="p-6">
         <View className="mb-4">

@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { BaseCheckboxProps } from './types';
 import BaseText from '@/components/text/BaseText';
+import { cn } from '@/utils/cn';
 
 /**
  * BaseCheckbox Component
@@ -91,21 +92,16 @@ const BaseCheckbox: React.FC<BaseCheckboxProps> = ({
     }
   };
 
-  // Checkbox box styles
-  const boxBaseStyles = 'w-5 h-5 rounded border-2 items-center justify-center';
-  const boxStateStyles = error
-    ? 'border-error bg-red-50'
-    : checked
-      ? 'border-primary bg-primary'
-      : 'border-input-border bg-input';
-  const boxDisabledStyles = disabled ? 'opacity-50' : '';
-  const finalBoxStyles = `${boxBaseStyles} ${boxStateStyles} ${boxDisabledStyles} ${checkboxClassName}`.trim();
-
   const renderCheckbox = () => (
-    <View className={finalBoxStyles}>
-      {checked && (
-        <View className="w-3 h-3 bg-white rounded-sm" />
+    <View
+      className={cn(
+        'w-5 h-5 rounded border-2 items-center justify-center',
+        error ? 'border-error bg-red-50' : checked ? 'border-primary bg-primary' : 'border-input-border bg-input',
+        disabled && 'opacity-50',
+        checkboxClassName
       )}
+    >
+      {checked && <View className="w-3 h-3 bg-white rounded-sm" />}
     </View>
   );
 
@@ -116,7 +112,7 @@ const BaseCheckbox: React.FC<BaseCheckboxProps> = ({
         text={displayLabel}
         variant="body"
         color={disabled ? 'foreground-secondary' : 'foreground'}
-        className={`${labelPosition === 'left' ? 'mr-3' : 'ml-3'} ${labelClassName}`.trim()}
+        className={cn(labelPosition === 'left' ? 'mr-3' : 'ml-3', labelClassName)}
       />
     );
   };
@@ -139,14 +135,8 @@ const BaseCheckbox: React.FC<BaseCheckboxProps> = ({
         {labelPosition === 'right' && renderLabel()}
       </TouchableOpacity>
 
-      {/* Error Message */}
       {error && errorMessage && (
-        <BaseText
-          text={errorMessage}
-          variant="caption"
-          color="error"
-          className={`mt-1 ${errorClassName}`.trim()}
-        />
+        <BaseText text={errorMessage} variant="caption" color="error" className={cn('mt-1', errorClassName)} />
       )}
     </View>
   );

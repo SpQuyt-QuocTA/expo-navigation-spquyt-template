@@ -1,11 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { HeaderProps } from './types';
+import { BaseHeaderProps } from './types';
 import { ArrowLeft } from '@/components/icons';
 import BaseText from '@/components/text/BaseText';
+import { cn } from '@/utils/cn';
 
-const Header: React.FC<HeaderProps> = ({
+const BaseHeader: React.FC<BaseHeaderProps> = ({
   title,
   leftElement,
   rightElement,
@@ -21,11 +22,6 @@ const Header: React.FC<HeaderProps> = ({
   const navigation = useNavigation();
   const canGoBack = navigation.canGoBack();
 
-  const borderStyles = showBorder ? 'border-b border-border' : '';
-  const finalContainerStyles = `h-14 px-4 flex-row items-center justify-between bg-card ${borderStyles} ${containerClassName}`.trim();
-  const finalTitleStyles = `text-lg font-semibold text-foreground ${titleClassName}`.trim();
-
-  // Render default back button if needed
   const renderLeftElement = () => {
     if (leftElement) return leftElement;
     if (useDefaultBack && canGoBack) {
@@ -39,25 +35,36 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <View className={finalContainerStyles} {...viewProps}>
-      {/* Left Element */}
-      <View className={`flex-1 flex-row items-center ${leftClassName}`.trim()}>
+    <View
+      className={cn(
+        'h-14 px-4 flex-row items-center justify-between bg-card',
+        showBorder && 'border-b border-border',
+        containerClassName
+      )}
+      {...viewProps}
+    >
+      <View className={cn('flex-1 flex-row items-center', leftClassName)}>
         {renderLeftElement()}
       </View>
 
-      {/* Title - Centered */}
       {title && (
         <View className="flex-1 items-center">
-          <BaseText text={title} variant="bodyLarge" bold numberOfLines={1} className={titleClassName} />
+          <BaseText
+            text={title}
+            variant="bodyLarge"
+            bold
+            numberOfLines={1}
+            className={titleClassName}
+          />
         </View>
       )}
 
-      {/* Right Element */}
-      <View className={`flex-1 flex-row items-center justify-end ${rightClassName}`.trim()}>
+      <View className={cn('flex-1 flex-row items-center justify-end', rightClassName)}>
         {rightElement}
       </View>
     </View>
   );
 };
 
-export default Header;
+export default BaseHeader;
+

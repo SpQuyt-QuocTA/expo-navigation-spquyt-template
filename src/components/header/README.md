@@ -1,4 +1,4 @@
-# Header Component
+# BaseHeader Component
 
 A flexible header component with left/right elements and title.
 
@@ -14,9 +14,9 @@ A flexible header component with left/right elements and title.
 ## Basic Usage
 
 ```tsx
-import Header from '@/components/header/Header';
+import BaseHeader from '@/components/header/BaseHeader';
 
-<Header title="Screen Title" />;
+<BaseHeader title="Screen Title" />;
 ```
 
 ## With Default Back Button
@@ -24,7 +24,7 @@ import Header from '@/components/header/Header';
 The easiest way to add a back button - automatically checks `canGoBack()`:
 
 ```tsx
-<Header title="Details" useDefaultBack />
+<BaseHeader title="Details" useDefaultBack />
 ```
 
 This is much cleaner than manually passing the back button component!
@@ -32,7 +32,7 @@ This is much cleaner than manually passing the back button component!
 ## With Custom Back Handler
 
 ```tsx
-<Header
+<BaseHeader
   title="Details"
   useDefaultBack
   onBackPress={() => {
@@ -46,7 +46,7 @@ This is much cleaner than manually passing the back button component!
 ## With Custom Back Button
 
 ```tsx
-<Header
+<BaseHeader
   title="Details"
   leftElement={
     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -59,7 +59,7 @@ This is much cleaner than manually passing the back button component!
 ## With Right Action
 
 ```tsx
-<Header
+<BaseHeader
   title="Settings"
   rightElement={
     <TouchableOpacity onPress={handleSave}>
@@ -72,7 +72,7 @@ This is much cleaner than manually passing the back button component!
 ## With Both Left and Right
 
 ```tsx
-<Header
+<BaseHeader
   title="Edit Profile"
   leftElement={
     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -92,20 +92,20 @@ This is much cleaner than manually passing the back button component!
 
 ```tsx
 // Dark header
-<Header
+<BaseHeader
   title="Dashboard"
   containerClassName="bg-gray-900 h-16"
   titleClassName="text-white text-xl"
 />
 
 // With border
-<Header
+<BaseHeader
   title="Home"
   showBorder
 />
 
 // Custom height
-<Header
+<BaseHeader
   title="Notifications"
   containerClassName="h-20"
 />
@@ -139,7 +139,7 @@ Plus all standard `ViewProps` from React Native.
 ### Multiple Actions
 
 ```tsx
-<Header
+<BaseHeader
   title="Messages"
   leftElement={
     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -162,7 +162,7 @@ Plus all standard `ViewProps` from React Native.
 ### With Avatar
 
 ```tsx
-<Header
+<BaseHeader
   title="Profile"
   leftElement={
     <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -176,7 +176,7 @@ Plus all standard `ViewProps` from React Native.
 ### No Title (Just Elements)
 
 ```tsx
-<Header
+<BaseHeader
   leftElement={<Image source={require('@/assets/logo.png')} className="h-8 w-24" />}
   rightElement={
     <TouchableOpacity onPress={handleNotifications}>
@@ -192,6 +192,6 @@ Plus all standard `ViewProps` from React Native.
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 <SafeAreaView edges={['top']} className="bg-white">
-  <Header title="Home" leftElement={<Icon name="menu" size={24} />} showBorder />
+  <BaseHeader title="Home" leftElement={<Icon name="menu" size={24} />} showBorder />
 </SafeAreaView>;
 ```

@@ -4,6 +4,7 @@ import { languageStore } from '@/store/languageStore';
 import { LANGUAGES, LanguageCode } from '@/i18n';
 import { LanguageSelectorProps } from './types';
 import BaseText from '@/components/text/BaseText';
+import { cn } from '@/utils/cn';
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   containerClassName = '',
@@ -23,7 +24,10 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   return (
     <TouchableOpacity
       onPress={toggleLanguage}
-      className={`rounded-lg border border-border bg-background-secondary px-4 py-2 ${containerClassName}`.trim()}
+      className={cn(
+        'rounded-lg border border-border bg-background-secondary px-4 py-2',
+        containerClassName
+      )}
       activeOpacity={0.7}
     >
       <BaseText text={`🌐 ${displayName}`} bold className={textClassName} />

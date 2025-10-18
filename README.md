@@ -284,3 +284,161 @@ import LanguageSelector from '@/components/language-selector/LanguageSelector';
 
 - Just use `npm run ios:dev` or `npm run android:dev`
 - No prebuild needed for code changes
+
+---
+
+## 🎨 Styling with `cn()` Utility
+
+### The Problem
+
+NativeWind/Tailwind CSS has unpredictable behavior when you have conflicting classes:
+
+```tsx
+// ❌ Which color wins? Depends on CSS order, not string order!
+<Text className="text-foreground text-error">???</Text>
+
+// ❌ Which size wins? Unpredictable!
+<Text className="text-base text-2xl">???</Text>
+```
+
+### The Solution
+
+Use `cn()` to merge classes - **the last class always wins** (like spreading objects):
+
+```tsx
+import { cn } from '@/utils/cn';
+
+// ✅ text-error wins!
+cn('text-foreground', 'text-error'); // → 'text-error'
+
+// ✅ text-2xl wins!
+cn('text-base font-bold', 'text-2xl'); // → 'text-2xl font-bold'
+
+// ✅ p-6 wins and overrides both px-4 and py-2
+cn('px-4 py-2', 'p-6'); // → 'p-6'
+```
+
+### Usage Examples
+
+#### Basic Usage
+
+```tsx
+import { cn } from '@/utils/cn';
+
+// Simple merge
+const className = cn('text-base text-primary', 'text-error');
+// Result: 'text-base text-error' ✅
+
+// With conditionals
+const className = cn('text-base', isError && 'text-error', isSuccess && 'text-success');
+
+// Handles undefined/null/false automatically
+const className = cn('text-base', null, undefined, false, 'font-bold');
+// Result: 'text-base font-bold'
+```
+
+#### In Components
+
+```tsx
+// Your BaseText and BaseButton already use this! 🎉
+
+<BaseText
+  variant="body"           // → text-base
+  color="foreground"       // → text-foreground
+  className="text-error"   // ✅ WINS! Overrides color prop
+>
+  Error message
+</BaseText>
+
+<BaseButton
+  containerClassName="bg-error"  // ✅ Overrides default bg-primary
+  textClassName="text-white text-2xl"  // ✅ Overrides all default text styles
+>
+  Custom Button
+</BaseButton>
+```
+
+#### Across Your Entire App
+
+Use `cn()` anywhere you need to merge Tailwind classes:
+
+```tsx
+import { cn } from '@/utils/cn';
+
+function MyComponent({ className, isActive }) {
+  return (
+    <View
+      className={cn(
+        'rounded-lg p-4',
+        isActive ? 'bg-primary' : 'bg-gray-100',
+        className // Always put dynamic className last!
+      )}>
+      {/* ... */}
+    </View>
+  );
+}
+
+// Usage
+<MyComponent
+  isActive
+  className="bg-error" // ✅ Overrides bg-primary!
+/>;
+```
+
+### Best Practices
+
+1. **Always put custom/dynamic classes last**
+
+   ```tsx
+   cn(defaultStyles, conditionalStyles, customClassName); // ✅
+   ```
+
+2. **Use it everywhere you merge classes**
+
+   ```tsx
+   // ❌ BAD
+   className={`${base} ${custom}`}
+
+   // ✅ GOOD
+   className={cn(base, custom)}
+   ```
+
+3. **No need to check for conflicts manually**
+
+   ```tsx
+   // ❌ BAD - manual conflict checking
+   const textColor = hasError ? 'text-error' : color;
+
+   // ✅ GOOD - let cn() handle it
+   const className = cn(getColorClass(color), hasError && 'text-error');
+   ```
+
+### How It Works
+
+`cn()` uses `tailwind-merge` under the hood, which:
+
+- Understands Tailwind's utility classes
+- Removes conflicting classes
+- **Keeps the last class** when conflicts occur
+- Works with custom colors/sizes you add to your config
+- Handles responsive classes (`sm:`, `md:`, etc.)
+- Handles state variants (`hover:`, `focus:`, etc.)
+
+### Adding Custom Colors/Sizes
+
+Just add them to your config - no code changes needed!
+
+```typescript
+// src/config/colors.ts
+export const lightColors = {
+  customBrand: '#FF0000', // ← Add new color
+  // ...
+};
+```
+
+```tsx
+// Works immediately! ✅
+<BaseText className="text-customBrand">Custom color</BaseText>;
+
+cn('text-primary', 'text-customBrand'); // customBrand wins!
+```

@@ -1,6 +1,6 @@
 import { ViewProps } from 'react-native';
 
-export type HeaderOwnProps = {
+export type BaseHeaderOwnProps = {
   title?: string;
   leftElement?: React.ReactNode;
   rightElement?: React.ReactNode;
@@ -13,5 +13,5 @@ export type HeaderOwnProps = {
   rightClassName?: string;
 };
 
-export type HeaderProps = HeaderOwnProps & Omit<ViewProps, 'className'>;
+export type BaseHeaderProps = BaseHeaderOwnProps & Omit<ViewProps, 'className'>;
 
